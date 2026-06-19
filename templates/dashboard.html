@@ -1,0 +1,158 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="dashboard-container">
+    <div class="sidebar shadow-sm">
+        <a href="{{ url_for('dashboard') }}" class="sidebar-link active"><i class="bi bi-kanban"></i> Tasks Console</a>
+        <a href="{{ url_for('add_task') }}" class="sidebar-link"><i class="bi bi-plus-circle-fill"></i> Add New Task</a>
+        <a href="{{ url_for('profile') }}" class="sidebar-link"><i class="bi bi-person-gear"></i> Profile Info</a>
+    </div>
+
+    <div class="main-content">
+        <div class="d-flex justify-content-between align-items-center flex-wrap mb-4">
+            <div>
+                <h2 class="fw-bold m-0">Workspace Engine Dashboard</h2>
+                <p class="text-muted small m-0">Welcome back, {{ session.get('user_name') }}</p>
+            </div>
+            <a href="{{ url_for('add_task') }}" class="btn btn-primary mt-2 mt-md-0"><i class="bi bi-plus-lg me-1"></i>Create New Task</a>
+        </div>
+
+        <div class="row g-3 mb-4">
+            <div class="col-6 col-lg-3">
+                <div class="p-3 bg-white border rounded-3 shadow-sm text-center">
+                    <h6 class="text-muted text-uppercase small fw-bold">Total Tasks</h6>
+                    <span class="fs-3 fw-bold text-dark">{{ metrics.total }}</span>
+                </div>
+            </div>
+            <div class="col-6 col-lg-3">
+                <div class="p-3 bg-white border rounded-3 shadow-sm text-center">
+                    <h6 class="text-muted text-uppercase small fw-bold text-warning">Pending</h6>
+                    <span class="fs-3 fw-bold text-warning">{{ metrics.pending }}</span>
+                </div>
+            </div>
+            <div class="col-6 col-lg-3">
+                <div class="p-3 bg-white border rounded-3 shadow-sm text-center">
+                    <h6 class="text-muted text-uppercase small fw-bold text-purple" style="color: #6b21a8;">In Progress</h6>
+                    <span class="fs-3 fw-bold text-purple" style="color: #6b21a8;">{{ metrics.progress }}</span>
+                </div>
+            </div>
+            <div class="col-6 col-lg-3">
+                <div class="p-3 bg-white border rounded-3 shadow-sm text-center">
+                    <h6 class="text-muted text-uppercase small fw-bold text-success">Completed</h6>
+                    <span class="fs-3 fw-bold text-success">{{ metrics.completed }}</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="card premium-card mb-4">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center mb-2">
+                    <span class="fw-bold text-muted small">Task Completion Target Velocity Metric</span>
+                    <span class="badge bg-primary px-2 py-1">{{ metrics.rate }}% Done</span>
+                </div>
+                <div class="progress" style="height: 10px;">
+                    <div class="progress-bar progress-bar-striped bg-success progress-bar-animated" role="progressbar" style="width: {{ metrics.rate }}%"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card premium-card mb-4 p-3 bg-white">
+            <form method="GET" action="{{ url_for('dashboard') }}" class="row g-2 align-items-center">
+                <div class="col-md-4">
+                    <div class="input-group">
+                        <span class="input-group-text bg-white border-end-0 text-muted"><i class="bi bi-search"></i></span>
+                        <input type="text" name="search" class="form-control border-start-0" placeholder="Search by title..." value="{{ search }}">
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <select name="status" class="form-select">
+                        <option value="">All Statuses</option>
+                        <option value="Pending" {% if status_filter == 'Pending' %}selected{% endif %}>Pending</option>
+                        <option value="In Progress" {% if status_filter == 'In Progress' %}selected{% endif %}>In Progress</option>
+                        <option value="Completed" {% if status_filter == 'Completed' %}selected{% endif %}>Completed</option>
+                    </select>
+                </div>
+                <div class="col-md-2">
+                    <select name="priority" class="form-select">
+                        <option value="">All Priorities</option>
+                        <option value="Low" {% if priority_filter == 'Low' %}selected{% endif %}>Low</option>
+                        <option value="Medium" {% if priority_filter == 'Medium' %}selected{% endif %}>Medium</option>
+                        <option value="High" {% if priority_filter == 'High' %}selected{% endif %}>High</option>
+                    </select>
+                </div>
+                <div class="col-md-2">
+                    <select name="sort" class="form-select">
+                        <option value="newest" {% if sort == 'newest' %}selected{% endif %}>Newest First</option>
+                        <option value="oldest" {% if sort == 'oldest' %}selected{% endif %}>Oldest First</option>
+                        <option value="due_date" {% if sort == 'due_date' %}selected{% endif %}>Due Date</option>
+                    </select>
+                </div>
+                <div class="col-md-2">
+                    <button type="submit" class="btn btn-primary w-100">Apply Filters</button>
+                </div>
+            </form>
+        </div>
+
+        <div class="row g-3">
+            {% if tasks %}
+                {% for task in tasks %}
+                    <div class="col-md-6 col-xxl-4">
+                        <div class="card premium-card h-100 border border-light">
+                            <div class="card-body d-flex flex-column justify-content-between">
+                                <div>
+                                    <div class="d-flex justify-content-between align-items-start mb-2">
+                                        <h5 class="fw-bold text-truncate m-0" style="max-width: 70%;">{{ task.title }}</h5>
+                                        <div>
+                                            <span class="badge badge-{{ task.priority|lower }} rounded-pill text-uppercase">{{ task.priority }}</span>
+                                            <span class="badge badge-{{ task.status|lower|replace(' ', '') }} rounded-pill text-uppercase">{{ task.status }}</span>
+                                        </div>
+                                    </div>
+                                    <p class="text-muted small text-break mb-3" style="white-space: pre-wrap;">{{ task.description or 'No structural description provided for this node asset execution objective.' }}</p>
+                                </div>
+                                <div class="border-top pt-2 d-flex justify-content-between align-items-center mt-3">
+                                    <span class="small {% if task.due_date < now.date() and task.status != 'Completed' %}text-danger fw-bold{% else %}text-muted{% endif %}">
+                                        <i class="bi bi-calendar-event me-1"></i>Due: {{ task.due_date.strftime('%b %d, %Y') }}
+                                    </span>
+                                    <div class="btn-group">
+                                        <a href="{{ url_for('edit_task', task_id=task.id) }}" class="btn btn-sm btn-outline-secondary py-1"><i class="bi bi-pencil"></i></a>
+                                        <button type="button" class="btn btn-sm btn-outline-danger py-1" onclick="confirmDeletion('{{ task.title|replace('\'', '\\\'') }}', '{{ task.id }}')"><i class="bi bi-trash"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <div class="col-12">
+                    <div class="text-center py-5 bg-white border rounded-4 shadow-sm my-3">
+                        <i class="bi bi-folder2-open text-muted" style="font-size: 3.5rem;"></i>
+                        <h4 class="fw-bold text-dark mt-2">No Active Task Context Instances Found</h4>
+                        <p class="text-muted small px-3">Try clearing out tracking matrix query modifiers or create your first task node workflow tracking profile pipeline right away.</p>
+                        <a href="{{ url_for('add_task') }}" class="btn btn-primary btn-sm mt-1"><i class="bi bi-plus-lg me-1"></i>Create Initial Node</a>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="deleteConfirmationModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-0 shadow-lg">
+            <div class="modal-header bg-danger text-white">
+                <h5 class="modal-title fw-bold"><i class="bi bi-exclamation-triangle-fill me-2"></i>Confirm Removal Execution</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body p-4">
+                <p class="m-0">Are you sure you want to permanently drop task context element: <strong id="modal-task-title" class="text-danger"></strong>?</p>
+                <p class="text-muted small mt-2 mb-0">Warning: This action cannot be undone. Database cluster allocations for this profile pointer route will clear automatically.</p>
+            </div>
+            <div class="modal-footer bg-light border-0">
+                <button type="button" class="btn btn-secondary btn-sm rounded-2" data-bs-dismiss="modal">Cancel Processing</button>
+                <form id="modal-delete-form" method="POST" action="" class="d-inline">
+                    <button type="submit" class="btn btn-danger btn-sm rounded-2">Confirm Drop</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
