@@ -45,34 +45,44 @@ This project allows users to securely sign up, log in, manage their personal tas
 
 # 📸 Screenshots
 
+<img width="500" height="300" alt="image" src="https://github.com/user-attachments/assets/ea6cda13-eb92-4f61-bf82-f341ab3acb0a" />
+
 ## 🔐 Login Page
-<img width="600" height="400" alt="Login Page" src="https://github.com/user-attachments/assets/YOUR_ASSET_ID_HERE" />
+
+<img width="500" height="300" alt="image" src="https://github.com/user-attachments/assets/259ae23c-0c22-4deb-954e-00065e872ab7" />
 
 ## 📝 Signup Page
-<img width="600" height="400" alt="Signup Page" src="https://github.com/user-attachments/assets/YOUR_ASSET_ID_HERE" />
+
+<img width="500" height="300" alt="image" src="https://github.com/user-attachments/assets/5bab7520-0056-44b0-84a5-1312048586a8" />
 
 ## 📊 Dashboard & Task Analytics
-<img width="600" height="400" alt="Dashboard Panel" src="https://github.com/user-attachments/assets/YOUR_ASSET_ID_HERE" />
 
-<img width="600" height="400" alt="Task Cards & Filters" src="https://github.com/user-attachments/assets/YOUR_ASSET_ID_HERE" />
+<img width="500" height="300" alt="image" src="https://github.com/user-attachments/assets/5c52dc3a-e037-42be-9256-15da25fb2ac6" />
 
 ## 📝 Task Forms (Add & Edit Nodes)
-<img width="600" height="400" alt="Add Task View" src="https://github.com/user-attachments/assets/YOUR_ASSET_ID_HERE" />
+
+<img width="500" height="300" alt="image" src="https://github.com/user-attachments/assets/e4e56e6b-33e7-4cb5-8c5a-22261fdbc20f" />
+
+
+
+<img width="500" height="300" alt="image" src="https://github.com/user-attachments/assets/4c5127f7-61f0-4ef9-b92e-a763d39d94cd" />
+
+<img width="500" height="300" alt="image" src="https://github.com/user-attachments/assets/59e1e4e6-4da5-4da8-9e74-d1165f346693" />
 
 ## Database
-<img width="600" height="400" alt="Users Table Database Schema" src="https://github.com/user-attachments/assets/YOUR_ASSET_ID_HERE" />
 
-<img width="600" height="400" alt="Tasks Table Database Schema" src="https://github.com/user-attachments/assets/YOUR_ASSET_ID_HERE" />
+<img width="500" height="300" alt="image" src="https://github.com/user-attachments/assets/ce962c04-b92b-4027-a1f2-d4cdef54e68b" />
 
+<img width="500" height="300" alt="image" src="https://github.com/user-attachments/assets/7ec314ef-0386-4d5d-9165-2aa65d685b34" />
 
 ---
 
 # 👩‍💻 Developed By
 
-Sravanthi
+Sravanthi Polamarasetti
 
 ---
 
 # 📎 GitHub Repository
 
-https://github.com/sravanthi9392-hub/THIRANEX_TASK_MANAGEMENT
+https://github.com/sravanthi9392-hub/TaskVibe
