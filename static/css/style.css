@@ -1,0 +1,126 @@
+/* Premium Professional UI Theme Root variables */
+:root {
+    --primary-color: #4f46e5;
+    --primary-hover: #4338ca;
+    --secondary-color: #6366f1;
+    --bg-color: #f8fafc;
+    --card-bg: #ffffff;
+    --text-main: #0f172a;
+    --text-muted: #64748b;
+    --sidebar-width: 260px;
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-main);
+    overflow-x: hidden;
+}
+
+/* Auth Layout & Cards */
+.gradient-custom {
+    background: linear-gradient(135deg, #4f46e5 0%, #6366f1 100%);
+}
+
+.premium-card {
+    background: var(--card-bg);
+    border: none;
+    border-radius: 1rem;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.premium-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.02);
+}
+
+.btn-primary {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+    font-weight: 500;
+    border-radius: 0.5rem;
+    padding: 0.6rem 1.2rem;
+    transition: all 0.2s ease;
+}
+
+.btn-primary:hover, .btn-primary:focus {
+    background-color: var(--primary-hover);
+    border-color: var(--primary-hover);
+}
+
+/* Dashboard Wrapper Layouts */
+.dashboard-container {
+    display: flex;
+    min-height: calc(100vh - 56px);
+}
+
+.sidebar {
+    width: var(--sidebar-width);
+    background-color: #ffffff;
+    border-right: 1px solid #e2e8f0;
+    padding: 2rem 1rem;
+}
+
+.main-content {
+    flex: 1;
+    padding: 2rem;
+}
+
+.sidebar-link {
+    display: flex;
+    align-items: center;
+    padding: 0.8rem 1rem;
+    color: var(--text-muted);
+    text-decoration: none;
+    border-radius: 0.5rem;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+}
+
+.sidebar-link:hover, .sidebar-link.active {
+    background-color: #f1f5f9;
+    color: var(--primary-color);
+}
+
+.sidebar-link i {
+    margin-right: 0.75rem;
+    font-size: 1.2rem;
+}
+
+/* Responsive Overrides */
+@media (max-width: 768px) {
+    .dashboard-container {
+        flex-direction: column;
+    }
+    .sidebar {
+        width: 100%;
+        border-right: none;
+        border-bottom: 1px solid #e2e8f0;
+        padding: 1rem;
+    }
+}
+
+/* Badges styling structural optimization */
+.badge-low { background-color: #f1f5f9; color: #475569; }
+.badge-medium { background-color: #fef3c7; color: #d97706; }
+.badge-high { background-color: #fee2e2; color: #dc2626; }
+
+.badge-pending { background-color: #e0f2fe; color: #0369a1; }
+.badge-progress { background-color: #f3e8ff; color: #6b21a8; }
+.badge-completed { background-color: #dcfce7; color: #15803d; }
+
+/* Global System Loading Animation CSS Wrapper */
+#loading-indicator {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 3px;
+    background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+    z-index: 9999;
+    display: none;
+    animation: loading-bar 1.5s infinite linear;
+}
+
+@keyframes loading-bar {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+}
